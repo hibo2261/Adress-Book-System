@@ -37,6 +37,22 @@ public class AddressBook {
 
     }
 
+    //	created editContact method to edit details of contact
+
+    public void editContact() {
+
+        System.out.print("\n Enter First Name of Contact you want Edit : ");
+        String firstName = scan.next();		//	variable to store first name of contact we want to edit
+
+        if (contact.getFirstName().equalsIgnoreCase(firstName)) {		// matching firstName of contact (Ignoring upper/lower case)
+            addContact();
+            System.out.println(" Contact updated successfully");
+        } else {
+            System.out.println(" Contact not found!");
+        }
+
+    }
+
     //	created displayContact method to display details of contact
 
     public void displayContact() {
