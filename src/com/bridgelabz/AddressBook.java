@@ -45,9 +45,39 @@ public class AddressBook {
         String firstName = scan.next();		//	variable to store first name of contact we want to edit
 
         if (contact.getFirstName().equalsIgnoreCase(firstName)) {		// matching firstName of contact (Ignoring upper/lower case)
+
             addContact();
             System.out.println(" Contact updated successfully");
+
         } else {
+
+            System.out.println(" Contact not found!");
+        }
+
+    }
+
+    //	created deleteContact method to delete contact
+
+    public void deleteContact() {
+
+        System.out.print("\n Enter First Name of Contact you want Delete : ");
+        String firstName = scan.next();		//	variable to store first name of contact we want to delete
+
+        if (contact.getFirstName().equalsIgnoreCase(firstName)) {		// matching firstName of contact (Ignoring upper/lower case)
+
+            contact.setFirstName(null);
+            contact.setLastName(null);
+            contact.setAddress(null);
+            contact.setCity(null);
+            contact.setState(null);
+            contact.setZipCode(null);;
+            contact.setPhoneNumber(null);
+            contact.setEmailId(null);
+
+            System.out.println(" Contact Deleted successfully");
+
+        } else {
+
             System.out.println(" Contact not found!");
         }
 
