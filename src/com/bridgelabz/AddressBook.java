@@ -1,18 +1,21 @@
 package com.bridgelabz;
 
 import java.util.ArrayList;     //imported ArrayList class
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;		// imported Scanner class
 
 public class AddressBook {
 
-    ArrayList<Contact> contactList = new ArrayList<>();	//	created object of ArrayList class
+    ArrayList<Contact> contactList;// = new ArrayList<>();	//	created object of ArrayList class
+    static HashMap<String, ArrayList<Contact>> addressBookList = new HashMap<>();		// created object of HashMap class
 
     Scanner scan = new Scanner(System.in);				//	created object of Scanner class
 
     /**
      *  created addDetails method to store details of new contact
      */
-    public void addDetails(ArrayList<Contact> contactList) {
+    public void addDetails(String firstName, String lastName, ArrayList<Contact> contactList) {
         /*
          *	created object of Contact class then
          *	storing details of contact in it.
@@ -20,11 +23,13 @@ public class AddressBook {
          */
         Contact contact = new Contact();
 
-        System.out.print("\n Enter First Name : ");
-        contact.setFirstName(scan.next());
+        //	System.out.print("\n Enter First Name : ");
+        //	contact.setFirstName(scan.next());
+        contact.setFirstName(firstName);
 
-        System.out.print(" Enter Last Name  : ");
-        contact.setLastName(scan.next());
+        //	System.out.print(" Enter Last Name  : ");
+        //	contact.setLastName(scan.next());
+        contact.setLastName(lastName);
 
         System.out.print(" Enter Address    : ");
         contact.setAddress(scan.next());
@@ -85,8 +90,8 @@ public class AddressBook {
             int option;
             do {
                 System.out.println("\n *** Available Options to Change *** ");
-                System.out.println(" 1. First Name  \n 2. Last Name \n 3. Address \n 4. City \n 5. State "
-                        + "\n 6. Zip code \n 7. Phone No. \n 8. Email Id \n 9. Exit");
+                System.out.println(" 1. Name \n 2. Address \n 3. City \n 4. State "
+                        + "\n 5. Zip code \n 6. Phone No. \n 7. Email Id \n 8. Exit");
                 System.out.print(" Enter option : ");
                 option = scan.nextInt();
 
@@ -94,33 +99,43 @@ public class AddressBook {
 
                     case 1 -> {
                         System.out.print("\n Enter First Name : ");
-                        contact.setFirstName(scan.next());
+                        String firstName = scan.next();
+                        System.out.print(" Enter Last Name : ");
+                        String lastName = scan.next();
+                        if(searchContact(firstName, lastName) == null) {
+                            contact.setFirstName(firstName);
+                            contact.setLastName(lastName);
+                        } else {
+                            System.out.println("\n Contact Already Available");
+                        }
+//				  		System.out.print("\n Enter First Name : ");
+//				  		contact.setFirstName(scan.next());
+//				  		System.out.print(" Enter Last Name  : ");
+//				  		contact.setLastName(scan.next());
                     } case 2 -> {
-                        System.out.print(" Enter Last Name  : ");
-                        contact.setLastName(scan.next());
-                    } case 3 -> {
-                        System.out.print(" Enter Address    : ");
+                        System.out.print("\n Enter Address    : ");
                         contact.setAddress(scan.next());
-                    } case 4 -> {
-                        System.out.print(" Enter City Name  : ");
+                    } case 3 -> {
+                        System.out.print("\n Enter City Name  : ");
                         contact.setCity(scan.next());
-                    } case 5 -> {
-                        System.out.print(" Enter State Name : ");
+                    } case 4 -> {
+                        System.out.print("\n Enter State Name : ");
                         contact.setState(scan.next());
-                    } case 6 -> {
-                        System.out.print(" Enter Zip code   : ");
+                    } case 5 -> {
+                        System.out.print("\n Enter Zip code   : ");
                         contact.setZipCode(scan.next());
-                    } case 7 -> {
-                        System.out.print(" Enter Phone No.  : ");
+                    } case 6 -> {
+                        System.out.print("\n Enter Phone No.  : ");
                         contact.setPhoneNumber(scan.next());
-                    } case 8 -> {
-                        System.out.print(" Enter Email Id   : ");
+                    } case 7 -> {
+                        System.out.print("\n Enter Email Id   : ");
                         contact.setEmailId(scan.next());
-
+                    } case 8 -> {
+                        System.out.println("\n Contact Edited Successfully");
                     } default -> System.out.println("\n Invalid Option");
                 }
-            }while(option != 9);
-            System.out.println("\n Contact Edited Successfully");
+            }while(option != 8);
+
         } else {
             System.out.println("\n Contact Not Found");
         }
@@ -143,4 +158,24 @@ public class AddressBook {
         }
     }
 
+    public Contact searchContact(String firstName, String lastName) {
+        /*
+         *	taking user input of first name of contact
+         *	Iterating addressBookList (HashMap) and one by one taking contactList (ArrrayList)
+         *	and for each contact of contactList matching firstName of contact
+         *	if it matches then return contact else return null
+         */
+
+        for(Map.Entry<String, ArrayList<Contact>> temp : addressBookList.entrySet()){
+            contactList = temp.getValue();
+
+            for(Contact contact : contactList) {
+
+                if(contact.getFirstName().equalsIgnoreCase(firstName) && contact.getLastName().equalsIgnoreCase(lastName)) {
+                    return contact;
+                }
+            }
+        }
+        return null;
+    }
 }

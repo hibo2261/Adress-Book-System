@@ -33,7 +33,12 @@ public class Print extends Dictionary {
 
         if (option == 1) {
 
-            displayContact(searchContact());
+            System.out.print("\n Enter First Name : ");
+            String firstName = scan.next();
+            System.out.print(" Enter Last Name : ");
+            String lastName = scan.next();
+
+            displayContact(searchContact(firstName, lastName));
 
         } else if (option == 2) {
 
@@ -68,7 +73,7 @@ public class Print extends Dictionary {
             System.out.println("\n Address Book not Available");
 
         } else {
-            System.out.println(" **** " + name + " ****");
+            System.out.println("\n **** " + name + " ****");
             contactList = addressBookList.get(name);
 
             for(int i = 0; i < contactList.size(); i++) {
@@ -104,18 +109,13 @@ public class Print extends Dictionary {
      */
     public void printAddressBookList() {
         /*
-         *	using isEmpty method check AddressBookList is Empty or not. If empty return from method
-         *	else Iterate addressBookList and print addressBook name one by one
+         *	Iterate addressBookList and print addressBook name one by one
          */
-        if (addressBookList.isEmpty() == true) {
-            System.out.println("\n AddressBook List is Empty");
-        } else {
-            int i = 0;
-            System.out.println("\n **** AddressBook List ****");
-            for(Map.Entry<String, ArrayList<Contact>> temp  : addressBookList.entrySet()){
-                i++;
-                System.out.println(" ("+ i +") "+ temp.getKey());
-            }
+        int i = 0;
+        System.out.println("\n **** AddressBook List **** \n");
+        for(Map.Entry<String, ArrayList<Contact>> temp  : addressBookList.entrySet()){
+            i++;
+            System.out.println(" ("+ i +") "+ temp.getKey());
         }
     }
 }

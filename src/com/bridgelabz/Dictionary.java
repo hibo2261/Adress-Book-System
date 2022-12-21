@@ -4,36 +4,33 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Dictionary extends AddressBook {
 
-    HashMap<String, ArrayList<Contact>> addressBookList = new HashMap<>();		// created object of HashMap class
+public class Dictionary extends AddressBook {
 
     /**
      *	created searchContact method with return type Contact
      *	to search and check contact is available or not
      */
-    public Contact searchContact() {
-        /*
-         *	taking user input of first name of contact
-         *	Iterating addressBookList (HashMap) and one by one taking contactList (ArrrayList)
-         *	and for each contact of contactList matching firstName of contact
-         *	if it matches then return contact else return null
-         */
-        System.out.print("\n Enter First Name of Contact : ");
-        String firstName = scan.next();
-
-        for(Map.Entry<String, ArrayList<Contact>> temp : addressBookList.entrySet()){
-            contactList = temp.getValue();
-
-            for(Contact contact : contactList) {
-
-                if(contact.getFirstName().equalsIgnoreCase(firstName)) {
-                    return contact;
-                }
-            }
-        }
-        return null;
-    }
+//	public Contact searchContact(String firstName, String lastName) {
+//		/*
+//		 *	taking user input of first name of contact
+//		 *	Iterating addressBookList (HashMap) and one by one taking contactList (ArrrayList)
+//		 *	and for each contact of contactList matching firstName of contact
+//		 *	if it matches then return contact else return null
+//		 */
+//
+//		for(Map.Entry<String, ArrayList<Contact>> temp : addressBookList.entrySet()){
+//			contactList = temp.getValue();
+//
+//			for(Contact contact : contactList) {
+//
+//				if(contact.getFirstName().equalsIgnoreCase(firstName) && contact.getLastName().equalsIgnoreCase(lastName)) {
+//					return contact;
+//				}
+//			}
+//		}
+//		return null;
+//	}
 
     /**
      *	created addContact method to add new contact
@@ -48,15 +45,24 @@ public class Dictionary extends AddressBook {
          */
         System.out.print("\n Enter Name of AddressBook : ");
         String name = scan.next();
+        System.out.print("\n Enter First Name : ");
+        String firstName = scan.next();
+        System.out.print(" Enter Last Name : ");
+        String lastName = scan.next();
+
+        if(searchContact(firstName, lastName) != null) {
+            System.out.println("\n Contact Already Available");
+            return;
+        }
 
         if (!addressBookList.containsKey(name)) {
             contactList =  new ArrayList<>();
             addressBookList.put(name, contactList);
-            addDetails(contactList);
+            addDetails(firstName, lastName, contactList);
 
         } else {
             contactList = addressBookList.get(name);
-            addDetails(contactList);
+            addDetails(firstName, lastName, contactList);
         }
     }
 
@@ -107,7 +113,12 @@ public class Dictionary extends AddressBook {
 
         if (option == 1) {
 
-            deleteContact(searchContact());
+            System.out.print("\n Enter First Name : ");
+            String firstName = scan.next();
+            System.out.print(" Enter Last Name : ");
+            String lastName = scan.next();
+
+            deleteContact(searchContact(firstName, lastName));
 
         } else if (option == 2) {
             System.out.print("\n Enter Name of AddressBook : ");
@@ -135,7 +146,11 @@ public class Dictionary extends AddressBook {
             System.out.println("\n AddressBook List is Empty");
             return;
         }
-        editDetails(searchContact());
+        System.out.print("\n Enter First Name : ");
+        String firstName = scan.next();
+        System.out.print(" Enter Last Name : ");
+        String lastName = scan.next();
+        editDetails(searchContact(firstName, lastName));
     }
 
 }
