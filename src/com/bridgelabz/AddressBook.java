@@ -9,11 +9,16 @@ public class AddressBook {
 
     Scanner scan = new Scanner(System.in);				//	created object of Scanner class
 
-    //	created addContact method to store details of new contact
-
-    public void addContact() {
-
-        Contact contact = new Contact();		//	created object of Contact class
+    /**
+     *  created addDetails method to store details of new contact
+     */
+    public void addDetails(ArrayList<Contact> contactList) {
+        /*
+         *	created object of Contact class then
+         *	storing details of contact in it.
+         *	at last adding new contact to contactList
+         */
+        Contact contact = new Contact();
 
         System.out.print("\n Enter First Name : ");
         contact.setFirstName(scan.next());
@@ -39,21 +44,21 @@ public class AddressBook {
         System.out.print(" Enter Email Id   : ");
         contact.setEmailId(scan.next());
 
-        contactList.add(contact);		// adding new contact to contactList
+        contactList.add(contact);
 
         System.out.println("\n Contact Added Successfully");
     }
 
-    //	created displayContact method to display details of contact
-
-    public void displayContact() {
-
-        for(int i = 0; i < contactList.size(); i++) {
-
-            System.out.println("\n *** Contact - " + (i+1) +" ***");
-
-            Contact contact = contactList.get(i);
-
+    /**
+     *	created displayContact method to display details of contact & passing contact as parameter
+     */
+    public void displayContact(Contact contact) {
+        /*
+         * 	if parameter contact is not null
+         *  then print data / details of contact.
+         *  else print "Contact Not Found"
+         */
+        if (contact != null) {
             System.out.println( "\n First Name : " + contact.getFirstName()
                     + "\n Last Name  : " + contact.getLastName()
                     + "\n Address    : " + contact.getAddress()
@@ -62,79 +67,80 @@ public class AddressBook {
                     + "\n Zip Code   : " + contact.getZipCode()
                     + "\n Phone No.  : " + contact.getPhoneNumber()
                     + "\n Email Id   : " + contact.getEmailId() );
+        } else {
+            System.out.println("\n Contact Not Found");
         }
     }
 
-    //	created editContact method to edit details of contact
+    /**
+     *	created editDetails method to edit details of contact & passing contact as parameter
+     */
+    public void editDetails(Contact contact) {
+        /*
+         *	If parameter contact is not null then run do-while loop till exit option entered
+         *	In loop using switch case we give separate options to edit different contact details
+         *	If contact parameter is null print "Contact Not Found"
+         */
+        if (contact != null) {
+            int option;
+            do {
+                System.out.println("\n *** Available Options to Change *** ");
+                System.out.println(" 1. First Name  \n 2. Last Name \n 3. Address \n 4. City \n 5. State "
+                        + "\n 6. Zip code \n 7. Phone No. \n 8. Email Id \n 9. Exit");
+                System.out.print(" Enter option : ");
+                option = scan.nextInt();
 
-    public void editContact() {
+                switch (option) {
 
-        System.out.print("\n Enter First Name of Contact you want Edit : ");
-        String firstName = scan.next();		//	variable to store first name of contact we want to edit
-        boolean isAvailable = false;
+                    case 1 -> {
+                        System.out.print("\n Enter First Name : ");
+                        contact.setFirstName(scan.next());
+                    } case 2 -> {
+                        System.out.print(" Enter Last Name  : ");
+                        contact.setLastName(scan.next());
+                    } case 3 -> {
+                        System.out.print(" Enter Address    : ");
+                        contact.setAddress(scan.next());
+                    } case 4 -> {
+                        System.out.print(" Enter City Name  : ");
+                        contact.setCity(scan.next());
+                    } case 5 -> {
+                        System.out.print(" Enter State Name : ");
+                        contact.setState(scan.next());
+                    } case 6 -> {
+                        System.out.print(" Enter Zip code   : ");
+                        contact.setZipCode(scan.next());
+                    } case 7 -> {
+                        System.out.print(" Enter Phone No.  : ");
+                        contact.setPhoneNumber(scan.next());
+                    } case 8 -> {
+                        System.out.print(" Enter Email Id   : ");
+                        contact.setEmailId(scan.next());
 
-        for(Contact contact : contactList) {
-
-            if(contact.getFirstName().equalsIgnoreCase(firstName)) {		// matching firstName of contact (Ignoring upper/lower case)
-                isAvailable = true;
-
-                System.out.print("\n Enter First Name : ");
-                contact.setFirstName(scan.next());
-
-                System.out.print(" Enter Last Name  : ");
-                contact.setLastName(scan.next());
-
-                System.out.print(" Enter Address    : ");
-                contact.setAddress(scan.next());
-
-                System.out.print(" Enter City Name  : ");
-                contact.setCity(scan.next());
-
-                System.out.print(" Enter State Name : ");
-                contact.setState(scan.next());
-
-                System.out.print(" Enter Zip code   : ");
-                contact.setZipCode(scan.next());
-
-                System.out.print(" Enter Phone No.  : ");
-                contact.setPhoneNumber(scan.next());
-
-                System.out.print(" Enter Email Id   : ");
-                contact.setEmailId(scan.next());
-
-                System.out.println("\n Contact Updated Successfully");
-            }
+                    } default -> System.out.println("\n Invalid Option");
+                }
+            }while(option != 9);
+            System.out.println("\n Contact Edited Successfully");
+        } else {
+            System.out.println("\n Contact Not Found");
         }
-
-        if (!isAvailable) {
-            System.out.println("\n Contact not found!");
-        }
-
     }
 
-    //	created deleteContact method to delete contact
-
-    public void deleteContact() {
-
-        System.out.print("\n Enter First Name of Contact you want Delete : ");
-        String firstName = scan.next();		//	variable to store first name of contact we want to delete
-        boolean isAvailable = false;
-
-        for(Contact contact : contactList) {
-
-            if(contact.getFirstName().equalsIgnoreCase(firstName)) {	// matching firstName of contact (Ignoring upper/lower case)
-                isAvailable = true;
-                contactList.remove(contact);
-                System.out.println("\n Contact Deleted Successfully");
-                break;
-            }
-        }
-
-        if(!isAvailable) {
+    /**
+     *	created deleteContact method to delete contact &  & passing contact as parameter
+     */
+    public void deleteContact(Contact contact) {
+        /*
+         * 	if parameter contact is not null
+         *  then delete contact from contactList.
+         *  else print "Contact Not Found"
+         */
+        if (contact != null) {
+            contactList.remove(contact);
+            System.out.println("\n Contact Deleted Successfully");
+        } else {
             System.out.println("\n Contact not found!");
-
         }
-
     }
 
 }
