@@ -8,29 +8,64 @@ import java.util.Map;
 public class Dictionary extends AddressBook {
 
     /**
-     *	created searchContact method with return type Contact
-     *	to search and check contact is available or not
+     *	created searchBCityOrState method to search contacts by city or state and print contact details
      */
-//	public Contact searchContact(String firstName, String lastName) {
-//		/*
-//		 *	taking user input of first name of contact
-//		 *	Iterating addressBookList (HashMap) and one by one taking contactList (ArrrayList)
-//		 *	and for each contact of contactList matching firstName of contact
-//		 *	if it matches then return contact else return null
-//		 */
-//
-//		for(Map.Entry<String, ArrayList<Contact>> temp : addressBookList.entrySet()){
-//			contactList = temp.getValue();
-//
-//			for(Contact contact : contactList) {
-//
-//				if(contact.getFirstName().equalsIgnoreCase(firstName) && contact.getLastName().equalsIgnoreCase(lastName)) {
-//					return contact;
-//				}
-//			}
-//		}
-//		return null;
-//	}
+    public void searchBCityOrState() {
+        /*
+         *	taking input to search by city or state,
+         *	taking city or state depend on option selected
+         *	iterating HashMap (addressBookList) and ArrayList (contactList)
+         *	and check if contacts available for entered city or state
+         *	if contact available give it to displayContact method to print details of that contact
+         */
+        System.out.println("\n 1. By City \n 2. By State");
+        System.out.print(" Enter option : ");
+        int option = scan.nextInt();
+        boolean isAvailable = false;
+
+        switch (option) {
+            case 1 -> {
+                System.out.print("\n Enter name of City : ");
+                String city = scan.next();
+
+                for(Map.Entry<String, ArrayList<Contact>> temp : addressBookList.entrySet()){
+                    contactList = temp.getValue();
+
+                    for(Contact contact : contactList) {
+
+                        if(contact.getCity().equalsIgnoreCase(city)) {
+                            isAvailable = true;
+                            displayContact(contact);
+                        }
+                    }
+                }
+            }
+
+            case 2 -> {
+                System.out.print("\n Enter name of State : ");
+                String state = scan.next();
+
+                for(Map.Entry<String, ArrayList<Contact>> temp : addressBookList.entrySet()){
+                    contactList = temp.getValue();
+
+                    for(Contact contact : contactList) {
+
+                        if(contact.getState().equalsIgnoreCase(state)) {
+                            isAvailable = true;
+                            displayContact(contact);
+                        }
+                    }
+                }
+            }
+            default -> {
+                isAvailable = true;
+                System.out.println("\n Invalid option selected");
+            }
+        }
+        if (!isAvailable) {
+            System.out.println("\n Contact not Available");
+        }
+    }
 
     /**
      *	created addContact method to add new contact
