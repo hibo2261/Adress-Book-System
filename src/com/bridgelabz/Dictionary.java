@@ -14,29 +14,30 @@ public class Dictionary extends AddressBook {
         /*
          *	taking input to search by city or state,
          *	taking city or state depend on option selected
-         *	iterating HashMap (addressBookList) and ArrayList (contactList)
-         *	and check if contacts available for entered city or state
-         *	if contact available give it to displayContact method to print details of that contact
+         *	and check if entered city or state is available or not in cityList or stateList
+         *	if city or state available iterate that arrayList
+         *	and one by one give contacts to displayContact method to print details of contacts
          */
         System.out.println("\n 1. By City \n 2. By State");
         System.out.print(" Enter option : ");
         int option = scan.nextInt();
-        boolean isAvailable = false;
+
 
         switch (option) {
             case 1 -> {
                 System.out.print("\n Enter name of City : ");
                 String city = scan.next();
 
-                for(Map.Entry<String, ArrayList<Contact>> temp : addressBookList.entrySet()){
-                    contactList = temp.getValue();
+                if (!cityList.containsKey(city)) {
+                    System.out.println("\n City not Available");
 
-                    for(Contact contact : contactList) {
+                } else {
+                    System.out.println("\n **** " + city + " ****");
+                    contactList = cityList.get(city);
 
-                        if(contact.getCity().equalsIgnoreCase(city)) {
-                            isAvailable = true;
-                            displayContact(contact);
-                        }
+                    for(int i = 0; i < contactList.size(); i++) {
+                        System.out.println("\n *** Contact - " + (i+1) +" ***");
+                        displayContact(contactList.get(i));
                     }
                 }
             }
@@ -45,25 +46,23 @@ public class Dictionary extends AddressBook {
                 System.out.print("\n Enter name of State : ");
                 String state = scan.next();
 
-                for(Map.Entry<String, ArrayList<Contact>> temp : addressBookList.entrySet()){
-                    contactList = temp.getValue();
+                if (!stateList.containsKey(state)) {
+                    System.out.println("\n State not Available");
 
-                    for(Contact contact : contactList) {
+                } else {
+                    System.out.println("\n **** " + state + " ****");
+                    contactList = stateList.get(state);
 
-                        if(contact.getState().equalsIgnoreCase(state)) {
-                            isAvailable = true;
-                            displayContact(contact);
-                        }
+                    for(int i = 0; i < contactList.size(); i++) {
+                        System.out.println("\n *** Contact - " + (i+1) +" ***");
+                        displayContact(contactList.get(i));
                     }
                 }
             }
             default -> {
-                isAvailable = true;
+
                 System.out.println("\n Invalid option selected");
             }
-        }
-        if (!isAvailable) {
-            System.out.println("\n Contact not Available");
         }
     }
 
