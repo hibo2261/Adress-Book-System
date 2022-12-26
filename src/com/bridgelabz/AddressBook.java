@@ -9,6 +9,8 @@ public class AddressBook {
 
     ArrayList<Contact> contactList;			//	created object of ArrayList class
     static HashMap<String, ArrayList<Contact>> addressBookList = new HashMap<>();		// created object of HashMap class
+    static HashMap<String, ArrayList<Contact>> cityList = new HashMap<>();
+    static HashMap<String, ArrayList<Contact>> stateList = new HashMap<>();
 
     Scanner scan = new Scanner(System.in);				//	created object of Scanner class
 
@@ -19,7 +21,7 @@ public class AddressBook {
         /*
          *	created object of Contact class then
          *	storing details of contact in it.
-         *	at last adding new contact to contactList
+         *	adding new contact to contactList
          */
         Contact contact = new Contact();
 
@@ -46,6 +48,33 @@ public class AddressBook {
         contact.setEmailId(scan.next());
 
         contactList.add(contact);
+
+        /*
+         *	checking city already available or not in cityList
+         *	if available then add contact to city of cityList
+         *	else add city in cityList then add contact in it
+         */
+        if (!cityList.containsKey(contact.getCity())) {
+            contactList =  new ArrayList<>();
+            cityList.put(contact.getCity(), contactList);
+            contactList.add(contact);
+        } else {
+            contactList = cityList.get(contact.getCity());
+            contactList.add(contact);
+        }
+        /*
+         *	checking state already available or not in stateList
+         *	if available then add contact to state of stateList
+         *	else add state in stateList then add contact in it
+         */
+        if (!stateList.containsKey(contact.getState())) {
+            contactList =  new ArrayList<>();
+            stateList.put(contact.getState(), contactList);
+            contactList.add(contact);
+        } else {
+            contactList = stateList.get(contact.getState());
+            contactList.add(contact);
+        }
 
         System.out.println("\n Contact Added Successfully");
     }
