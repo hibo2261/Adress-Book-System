@@ -7,18 +7,19 @@ public class Main {
     public static void main(String[] args) {
         /*
          *  printing welcome message
-         *  created object of class Dictionary & class Print
+         *  created object of class Dictionary & class Print & class Sort
          *	used do-while loop and switch-case to make console for activities like
-         *	Add AddressBook, Add Contact, Edit Contact, Delete, Print, Exit
+         *	Add AddressBook, Add Contact, Edit Contact, Delete, Print, Sort, Exit
          */
         System.out.println(" Welcome to Address Book Program");
         Dictionary dictionary = new Dictionary();
         Print print = new Print();
+        Sort sort = new Sort();
         int option;		// variable to store value of console options
         do {
             System.out.println("\n *** Available Options *** ");
             System.out.println(" 1. Add AddressBook \n 2. Add Contact \n 3. Edit Contact" +
-                    " \n 4. Delete \n 5. Print \n 6. Exit");
+                    " \n 4. Delete \n 5. Print \n 6. Sort by Name \n 7. Exit");
             System.out.print(" Enter option to perform activity : ");
             option = dictionary.scan.nextInt();
             switch (option) {
@@ -27,9 +28,10 @@ public class Main {
                 case 3 -> dictionary.editContact();
                 case 4 -> dictionary.delete();
                 case 5 -> print.print();
-                case 6 -> System.out.println("\n Exited Successfully");
+                case 6 -> sort.sortAlphabeticallyByName();
+                case 7 -> System.out.println("\n Exited Successfully");
                 default -> System.out.print("\n Option not Available \n");
             }
-        } while(option != 6);
+        } while(option != 7);
     }
 }
