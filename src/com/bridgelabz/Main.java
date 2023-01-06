@@ -19,7 +19,7 @@ public class Main {
         do {
             System.out.println("\n *** Available Options *** ");
             System.out.println(" 1. Add AddressBook \n 2. Add Contact \n 3. Edit Contact" +
-                    " \n 4. Delete \n 5. Print \n 6. Sort by Name \n 7. Exit");
+                    " \n 4. Delete \n 5. Print \n 6. Sort \n 7. Exit");
             System.out.print(" Enter option to perform activity : ");
             option = dictionary.scan.nextInt();
             switch (option) {
@@ -28,7 +28,7 @@ public class Main {
                 case 3 -> dictionary.editContact();
                 case 4 -> dictionary.delete();
                 case 5 -> print.print();
-                case 6 -> sort.sortAlphabeticallyByName();
+                case 6 -> sort.sort();
                 case 7 -> System.out.println("\n Exited Successfully");
                 default -> System.out.print("\n Option not Available \n");
             }
